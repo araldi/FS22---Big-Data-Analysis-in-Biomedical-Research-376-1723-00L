@@ -6,3 +6,5 @@ GitHub directory of the ETH course Big-Data-Analysis-in-Biomedical-Research-376-
 * Week 1: Introduction to Python 
 
 * Week 2: Introduction to NumPy and Pandas 
+
+* Week 3: More on Pandas and Introduction to Data visualization (slides on Moodle)
