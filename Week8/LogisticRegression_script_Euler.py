@@ -15,14 +15,7 @@ import pandas as pd
 import seaborn as sns
 import matplotlib.pyplot as plt
 import numpy as np
-from sklearn.linear_model import LogisticRegression
-from sklearn.model_selection import train_test_split
-from sklearn import metrics
-from sklearn.metrics import accuracy_score,precision_score
-from sklearn import preprocessing
 from sklearn.manifold import TSNE
-from sklearn.metrics import confusion_matrix
-import json
 
 # load the data
 df_ML= pd.read_csv('https://github.com/araldi/FS22---Big-Data-Analysis-in-Biomedical-Research-376-1723-00L/raw/main/Week8/ML_ready_mushroom.csv')
@@ -46,58 +39,5 @@ plt.legend(loc ='lower left', labels = ['p', 'e'])
 
 #edit this!!
 
-# plt.savefig('/cluster/home/username/exercise_dir/TSNE_mushrooms.svg')
-# plt.savefig('/cluster/home/username/exercise_dir/TSNE_mushrooms.png')
-
-#creating test/train split
-#scaling not necessary
-y=df_ML['class']
-X=df_ML.drop(['class'],axis=1)
-
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.20, random_state=2022)
-df_train, df_test = train_test_split(df_ML, test_size = 0.20, random_state=2022)
-
-# train logreg model
-model = LogisticRegression().fit(X_train,y_train)
-y_pred = model.predict(X_train)
-
-print('------ TRAINING DATASET ------')
-print('Accuracy Score : ' + str(accuracy_score(y_train,y_pred)))
-print('Precision Score : ' + str(precision_score(y_train,y_pred)))
-
-#Logistic Regression Classifier Confusion matrix
-print('Confusion Matrix : \n' + str(confusion_matrix(y_train,y_pred)))
-
-# test model
-
-descriptors = []
-y_pred = model.predict(X_test)
-
-print('------ TEST DATASET ------')
-accuracy = 'Accuracy Score : ' + str(accuracy_score(y_test,y_pred))
-precision ='Precision Score : ' + str(precision_score(y_test,y_pred))
-print(accuracy)
-print(precision)
-
-
-#Logistic Regression Classifier Confusion matrix
-cm = 'Confusion Matrix : \n' + str(confusion_matrix(y_test,y_pred))
-print(cm)
-
-# save the descriptors in a list
-descriptors = [accuracy, precision, cm]
-
-# write the output somewhere
-# with open("/cluster/home/username/exercise_dir/descriptors_logistic_regression_predictions.txt", "w") as file:
-#     file_lines = "\n".join(descriptors)
-#     file.write(file_lines)
-
-# save the coefficients
-logistic_coef = LogisticRegression().fit(x,y).coef_.flatten()
-coeff = [i for i in df_ML.columns if 'class' not in i]
-
-dict_coef = dict(zip(coeff, logistic_coef))
-
-# save data into file:
-# json.dump( dict_coef, open( "/cluster/home/username/exercise_dir/logistic_regression_coefficients.json", 'w' ) )
-
+plt.savefig('/cluster/home/username/exercise_dir/TSNE_mushrooms.svg')
+plt.savefig('/cluster/home/username/exercise_dir/TSNE_mushrooms.png')
