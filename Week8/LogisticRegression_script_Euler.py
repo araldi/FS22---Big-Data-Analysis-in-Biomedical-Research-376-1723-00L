@@ -25,7 +25,7 @@ from sklearn.metrics import confusion_matrix
 import json
 
 # load the data
-df_ML= pd.read_csv('https://github.com/araldi/FS22---Big-Data-Analysis-in-Biomedical-Research-376-1723-00L/raw/main/Week8/ML_ready_mushroom.csv', delim_whitespace=True)
+df_ML= pd.read_csv('https://github.com/araldi/FS22---Big-Data-Analysis-in-Biomedical-Research-376-1723-00L/raw/main/Week8/ML_ready_mushroom.csv')
 
 # quickly visualize data with TSNE
 #create model
