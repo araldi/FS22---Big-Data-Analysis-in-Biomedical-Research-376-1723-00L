@@ -18,7 +18,6 @@ import numpy as np
 from sklearn.linear_model import LogisticRegression
 from sklearn.model_selection import train_test_split
 from sklearn import metrics
-from sklearn.metrics import plot_confusion_matrix
 from sklearn.metrics import accuracy_score,precision_score
 from sklearn import preprocessing
 from sklearn.manifold import TSNE
@@ -92,9 +91,6 @@ descriptors = [accuracy, precision, cm]
 # with open("/cluster/home/username/exercise_dir/descriptors_logistic_regression_predictions.txt", "w") as file:
 #     file_lines = "\n".join(descriptors)
 #     file.write(file_lines)
-
-plot_confusion_matrix(model,X_test,y_test,cmap='inferno',values_format='g')
-# plt.savefig('/cluster/home/username/exercise_dir/confusion_matrix_test_dataset_predictions.svg')
 
 # save the coefficients
 logistic_coef = LogisticRegression().fit(x,y).coef_.flatten()
