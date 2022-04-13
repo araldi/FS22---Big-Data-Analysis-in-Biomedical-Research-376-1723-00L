@@ -26,52 +26,7 @@ from sklearn.metrics import confusion_matrix
 import json
 
 # load the data
-df= pd.read_csv('https://github.com/rashida048/Datasets/raw/master/mushrooms.csv')
-
-# prepare the data for ML
-to_binary = [] 
-
-for col in df.columns:
-
-  # remove "?"
-  if "?" in df[col].value_counts().index:
-    print('convert ? values in column ', col)
-    conditions = [df[col] == '?']
-    choices = ['x']
-    df[col] = np.select(conditions, choices, default = df[col])
-
-  # reassign binary columns to 0,1
-  elif len(df[col].value_counts()) == 2:
-    print('convert this column into binary:', col)
-    to_binary.append(col)
-    options = list(df[col].value_counts().index)
-    conditions = [df[col] == options[0], df[col] == options[1]]
-    choices = [0,1]
-    df[col] = np.select(conditions, choices)
-    
-  # drop columns with identical valuse
-  elif len(df[col].value_counts()) < 2:
-    print('drop this column:', col)
-    df = df.drop(columns = [col])
-
-# convert categorical into its corresponding numerical
-conditions = [df['ring-number'] == 'n', df['ring-number'] == 'o', df['ring-number'] == 't']
-choices = [0,1,2]
-df['ring-number'] = np.select(conditions, choices)
-
-# select what is not binary or numerical
-not_to_encode = to_binary + ['ring-number']
-to_encode = [i for i in df.columns if i not in not_to_encode]
-
-# create a new dataframe for ML where the categorical columns are one-hot-encoded
-df_ML = df[not_to_encode]
-
-for col in to_encode:
-  enc = preprocessing.OneHotEncoder()
-  enc.fit(df[[col]])
-  one_hot = enc.transform(df[[col]]).toarray()
-  new_cols = [col + "_"+ i for i in enc.categories_[0]]
-  df_ML[new_cols] = one_hot
+df_ML= pd.read_csv('https://github.com/araldi/FS22---Big-Data-Analysis-in-Biomedical-Research-376-1723-00L/raw/main/Week8/ML_ready_mushroom.csv', delim_whitespace=True)
 
 # quickly visualize data with TSNE
 #create model
